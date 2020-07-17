@@ -1,0 +1,34 @@
+if &compatible
+  set nocompatible
+end
+filetype off
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+call vundle#end()            " required
+Plugin 'vim-airline/vim-airline'
+if has('gui_running')
+    let g:airline_powerline_fonts = 1
+else
+    let g:airline_powerline_fonts = 0
+endif
+Plugin 'scrooloose/nerdtree'
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
+"当NERDTree为剩下的唯一窗口时自动关闭"
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+"修改树的显示图标
+"let g:NERDTreeDirArrowExpandable = '►'
+"let g:NERDTreeDirArrowCollapsible = '▼'
+let NERDTreeAutoCenter=1
+"显示行号
+ let NERDTreeShowLineNumbers=1
+" 设置宽度
+ let NERDTreeWinSize=25
+"窗口位置
+let g:NERDTreeWinPos='left' 
+"是否显示隐藏文件
+ let NERDTreeShowHidden=1"
+" 忽略一下文件的显示
+let NERDTreeIgnore=['\.pyc','\~$','\.swp']
+map <silent> <F6> :NERDTreeToggle<CR>
+filetype plugin indent on
